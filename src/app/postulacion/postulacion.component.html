@@ -1,0 +1,37 @@
+<div *ngIf="postulaciones.length > 0; else noData">
+  <table>
+    <thead>
+    <tr>
+      <th>ID Postulación</th>
+      <th>Nombre</th>
+      <th>Área</th>
+      <th>Título</th>
+      <th>Salario</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let postulacion of postulaciones">
+      <td>{{ postulacion.id_postulacion }}</td>
+      <td>{{ postulacion.nombre }}</td>
+      <td>{{ postulacion.area }}</td>
+      <td>{{ postulacion.titulo }}</td>
+      <td>{{ postulacion.salario | currency }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #noData>
+  <p>No se encontraron postulaciones.</p>
+</ng-template>
+
+<div>
+  <label>
+    Área:
+    <input type="text" [(ngModel)]="filtroArea" />
+  </label>
+  <label>
+    Título:
+    <input type="text" [(ngModel)]="filtroTitulo" />
+  </label>
+  <button (click)="fetchPostulaciones(filtroArea, filtroTitulo)">Buscar</button>
+</div>

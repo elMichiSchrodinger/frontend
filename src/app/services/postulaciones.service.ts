@@ -1,28 +1,40 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {map, Observable} from 'rxjs';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {Observable} from 'rxjs';
 import {Postulaciones} from '../models/postulaciones.model';
+import {DetallePostulacion} from '../models/detallePostulacion.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostulacionesService {
   private apiUrl='http://localhost:8080/postulaciones';
-  constructor(private http: HttpClient) { }
-  getPostulaciones(area?:string, titulo?:string): Observable<Postulaciones[]> {
+  private postulacion!: Postulaciones;
+  constructor(private http: HttpClient) {}
+  setIdPostulacion(postulacion:Postulaciones){
+    this.postulacion = postulacion;
+  }
+  getIdPostulacion(){
+    return this.postulacion;
+  }
+  obtenerpostulaciones(area?:string, titulo?:string):Observable<Postulaciones[]>{
     let params = new HttpParams();
-    if (area) params = params.set('area', area);
-    if (titulo) params = params.set('titulo', titulo);
-    return this.http.get<Postulaciones[]>(this.apiUrl, {params}).pipe(
-      map((data: any[]) =>
-        data.map((item) => new Postulaciones(
-          item.id_postulacion,
-          item.nombre,
-          item.area,
-          item.titulo,
-          item.salario
-        ))
-      )
-    );
+    if (area) params = params.set('area',area);
+    if (titulo) params = params.set('titulo',titulo);
+
+    return this.http.get<Postulaciones[]>(this.apiUrl, { params });
+  }
+  obtenerPostulacion(postulacion: Postulaciones):Observable<DetallePostulacion>{
+    return this.http.get<DetallePostulacion>(`${this.apiUrl}/${postulacion.id_postulacion}`);
+  }
+  aprobarPostulacion(postulacion:Postulaciones):Observable<Postulaciones>{
+    const url = `${this.apiUrl}/aprobar`;
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.put<Postulaciones>(url,postulacion,{headers});
+  }
+  desaprobarPostulacion(postulacion:Postulaciones):Observable<Postulaciones> {
+    const url = `${this.apiUrl}/desaprobar`;
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.put<Postulaciones>(url,postulacion,{headers});
   }
 }

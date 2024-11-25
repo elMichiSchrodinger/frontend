@@ -31,89 +31,91 @@
     </svg>
   </button>
 </nav>
-<div class="contenedor-vacante" *ngIf="contador==0">
-  <h1>Información de la vacante</h1>
-  <div class="dato-contenedor">
-    <div class="dato-item">
-      <p>Título del Puesto</p>
-      <input type="text" name="" >
-    </div>
-    <div class="dato-item">
-      <p>Descripción del Puesto</p>
-      <input type="text" name="" >
-    </div>
-    <div class="dato-item">
-      <p>Departamento/Área</p>
-      <input type="text" name="" >
-    </div>
-    <div class="dato-item">
-      <p>Ubicación</p>
-      <input type="text" name="" >
-    </div>
-    <div class="dato-item">
-      <p>Tipo de Contrato</p>
-      <input type="text" name="" >
-    </div>
-    <div class="dato-item">
-      <p>Jornada Laboral</p>
-      <input type="text" name="" >
+<form (ngSubmit)="f.form.valid && crearVacante(vacante)" #f="ngForm">
+  <div class="contenedor-vacante" *ngIf="contador==0">
+    <h1>Información de la vacante</h1>
+    <div class="dato-contenedor">
+      <div class="dato-item">
+        <p>Título del Puesto</p>
+        <input type="text" name="nombrepuesto" [(ngModel)]="vacante.nombrepuesto" required #nombrepuesto="ngModel">
+      </div>
+      <div class="dato-item">
+        <p>Descripción del Puesto</p>
+        <input type="text" name="descripcionpuesto" [(ngModel)]="vacante.descripcionpuesto" required #descripcionpuesto="ngModel">
+      </div>
+      <div class="dato-item">
+        <p>Departamento/Área</p>
+        <input type="text" name="area" [(ngModel)]="vacante.area" required #area="ngModel">
+      </div>
+      <div class="dato-item">
+        <p>Ubicación</p>
+        <input type="text" name="ubicacion" [(ngModel)]="vacante.ubicacion" required #ubicacion="ngModel">
+      </div>
+      <div class="dato-item">
+        <p>Tipo de Contrato</p>
+        <input type="text" name="tipocontrato" [(ngModel)]="vacante.tipocontrato" required #tipocontrato="ngModel">
+      </div>
+      <div class="dato-item">
+        <p>Jornada Laboral</p>
+        <input type="text" name="jornadalaboral" [(ngModel)]="vacante.jornadalaboral" required #jornadalaboral="ngModel">
+      </div>
     </div>
   </div>
-</div>
 
-<div class="contenedor-vacante" *ngIf="contador==1">
-  <h1>Requisitos del candidato</h1>
-  <div class="dato-contenedor">
-    <div class="dato-item">
-      <p>Experiencia Requerida</p>
-      <input type="text" name="" >
-    </div>
-    <div class="dato-item">
-      <p>Nivel Educativo</p>
-      <input type="text" name="" >
-    </div>
-    <div class="dato-item">
-      <p>Habilidad</p>
-      <input type="text" name="" >
-    </div>
-    <div class="dato-item">
-      <p>Idioma</p>
-      <input type="text" name="" >
-    </div>
-    <div class="dato-item">
-      <p>Certificación</p>
-      <input type="text" name="" >
+  <div class="contenedor-vacante" *ngIf="contador==1">
+    <h1>Requisitos del candidato</h1>
+    <div class="dato-contenedor">
+      <div class="dato-item">
+        <p>Experiencia Requerida (años)</p>
+        <input type="number" name="experiencia" [(ngModel)]="vacante.experiencia" required min="0" #experiencia="ngModel">
+      </div>
+      <div class="dato-item">
+        <p>Nivel Educativo</p>
+        <input type="text" name="niveleducativo" [ngModel]="vacante.niveleducativo" required #niveleducativo="ngModel">
+      </div>
+      <div class="dato-item">
+        <p>Habilidad</p>
+        <input type="text" name="habilidad" [(ngModel)]="vacante.habilidad" required #habilidad="ngModel">
+      </div>
+      <div class="dato-item">
+        <p>Idioma</p>
+        <input type="text" name="idioma" [(ngModel)]="vacante.idioma" required #idioma="ngModel">
+      </div>
+      <div class="dato-item">
+        <p>Certificación</p>
+        <input type="text" name="certificacion" [(ngModel)]="vacante.certificacion" required #certificacion="ngModel">
+      </div>
     </div>
   </div>
-</div>
 
-<div class="contenedor-vacante" *ngIf="contador==2">
-  <h1>Beneficios y Proceso</h1>
-  <div class="dato-contenedor">
-    <div class="dato-item">
-      <p>Salario Ofrecido</p>
-      <input type="text" name="" >
+  <div class="contenedor-vacante" *ngIf="contador==2">
+    <h1>Beneficio y Proceso</h1>
+    <div class="dato-contenedor">
+      <div class="dato-item">
+        <p>Salario Ofrecido</p>
+        <input type="number" name="salario" [(ngModel)]="vacante.salario" required min="0" #salario="ngModel">
+      </div>
+      <div class="dato-item">
+        <p>Bono</p>
+        <input type="number" name="bono" [(ngModel)]="vacante.bono" required min="0" #bono="ngModel">
+      </div>
+      <div class="dato-item">
+        <p>Beneficio adicional</p>
+        <input type="text" name="beneficio" [(ngModel)]="vacante.beneficio" required #beneficio="ngModel">
+      </div>
+      <div class="dato-item">
+        <p>Fecha de Inicio</p>
+        <input type="date" name="fechainicio" [(ngModel)]="vacante.fechainicio" required #fechainicio="ngModel">
+      </div>
+      <div class="dato-item">
+        <p>Fecha de Cierre</p>
+        <input type="date" name="fechacierre" [(ngModel)]="vacante.fechacierre" required #fechacierre="ngModel">
+      </div>
+      <div class="dato-item">
+        <p>Modalidad</p>
+        <input type="text" name="modalidad" [(ngModel)]="vacante.modalidad" required #modalidad="ngModel">
+      </div>
+      <button type="submit" [disabled]="f.invalid">Lanzar Vacante</button>
     </div>
-    <div class="dato-item">
-      <p>Bono</p>
-      <input type="text" name="" >
-    </div>
-    <div class="dato-item">
-      <p>Beneficio adicional</p>
-      <input type="text" name="" >
-    </div>
-    <div class="dato-item">
-      <p>Fecha de Inicio</p>
-      <input type="text" name="" >
-    </div>
-    <div class="dato-item">
-      <p>Fecha de Cierre</p>
-      <input type="text" name="" >
-    </div>
-    <div class="dato-item">
-      <p>Modalidad</p>
-      <input type="text" name="" >
-    </div>
-    <button>Lanzar Vacante</button>
   </div>
-</div>
+</form>
